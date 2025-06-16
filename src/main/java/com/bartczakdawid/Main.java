@@ -1,13 +1,13 @@
 package com.bartczakdawid;
 
-import com.bartczakdawid.core.enums.ViewType;
-import com.bartczakdawid.features.account.views.LoginView;
-import com.bartczakdawid.features.alert.views.AlertView;
-import com.bartczakdawid.features.contact.views.ContactsView;
-import com.bartczakdawid.features.email.views.EmailView;
-import com.bartczakdawid.features.account.managers.AccountManager;
-import com.bartczakdawid.core.managers.ViewManager;
-import com.bartczakdawid.features.email.views.NewEmailView;
+import com.bartczakdawid.core.navigation.ViewType;
+import com.bartczakdawid.features.auth.LoginView;
+import com.bartczakdawid.features.alert.AlertView;
+import com.bartczakdawid.features.contacts.ContactsView;
+import com.bartczakdawid.features.email.EmailView;
+import com.bartczakdawid.features.auth.AccountManager;
+import com.bartczakdawid.core.navigation.ViewManager;
+import com.bartczakdawid.features.email.newemail.NewEmailView;
 
 import javax.swing.*;
 import java.io.IOException;
