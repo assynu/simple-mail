@@ -62,6 +62,7 @@ public class NewEmailView extends JFrame implements ManageableView, ContactListO
 
         this.add(content, BorderLayout.CENTER);
         this.add(actionsPanel, BorderLayout.SOUTH);
+        this.setMinimumSize(new Dimension(200, 300));
         this.setPreferredSize(new Dimension(400, 500));
         this.pack();
         this.setLocationRelativeTo(null);

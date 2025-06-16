@@ -51,8 +51,8 @@ public class LoginView extends JFrame implements ManageableView {
 
         this.add(contentPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
-        this.pack();
         this.setMinimumSize(new Dimension(300, 200));
+        this.pack();
     }
 
     @Override

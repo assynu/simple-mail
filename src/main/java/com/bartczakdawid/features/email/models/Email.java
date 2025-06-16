@@ -1,25 +1,26 @@
 package com.bartczakdawid.features.email.models;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Email {
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private final String sender;
     private final String receiver;
     private final String subject;
     private final String content;
-    private final LocalTime time;
+    private final LocalDateTime time;
 
     public Email(String sender, String receiver, String subject, String content) {
         this.sender = sender;
         this.receiver = receiver;
         this.subject = subject;
         this.content = content;
-        this.time = LocalTime.now();
+        this.time = LocalDateTime.now();
     }
 
-    public Email(String sender, String receiver, String subject, String content, LocalTime time) {
+    public Email(String sender, String receiver, String subject, String content, LocalDateTime time) {
         this.sender = sender;
         this.receiver = receiver;
         this.subject = subject;
@@ -41,6 +42,10 @@ public class Email {
 
     public String getSender() {
         return sender;
+    }
+
+    public LocalDateTime getIsoTime() {
+        return time;
     }
 
     public String getTime() {

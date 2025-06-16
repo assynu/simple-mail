@@ -54,7 +54,7 @@ public class EmailContent extends JPanel implements SelectedEmailChangeListener 
         senderComponent.setText(email.getSender());
         receiverComponent.setText(email.getReceiver());
         contentComponent.setText(email.getContent());
-        timeComponent.setText(email.getTime());
+        timeComponent.setText("Sent " + email.getTime());
     }
 
     @Override

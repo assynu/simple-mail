@@ -30,9 +30,10 @@ public class ContactsView extends JFrame implements ManageableView {
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
+        this.setPreferredSize(new Dimension(300, 500));
         this.setMinimumSize(new Dimension(300, 150));
-        this.setLocationRelativeTo(null);
         this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     @Override

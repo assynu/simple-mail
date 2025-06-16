@@ -10,6 +10,7 @@ import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 
@@ -28,7 +29,7 @@ public class EmailManager {
         String[] rawEmails = fileManager.readFile();
         for (String line : rawEmails) {
             String[] rawEmail = line.split(";");
-            Email email = new Email(rawEmail[0], rawEmail[1], rawEmail[2], rawEmail[3], LocalTime.parse(rawEmail[4]));
+            Email email = new Email(rawEmail[0], rawEmail[1], rawEmail[2], rawEmail[3], LocalDateTime.parse(rawEmail[4]));
             emails.add(email);
         }
     }
@@ -58,7 +59,7 @@ public class EmailManager {
 
             Email sentEmail = new Email(credentials.getEmail(),  receiver, subject, content);
             emails.add(sentEmail);
-            fileManager.writeLine(sentEmail.getSender() + ";" + sentEmail.getReceiver() + ";" + sentEmail.getSubject() + ";" + sentEmail.getContent() + ";" + sentEmail.getTime(), true);
+            fileManager.writeLine(sentEmail.getSender() + ";" + sentEmail.getReceiver() + ";" + sentEmail.getSubject() + ";" + sentEmail.getContent() + ";" + sentEmail.getIsoTime(), true);
             notifyObservers();
         }
     }

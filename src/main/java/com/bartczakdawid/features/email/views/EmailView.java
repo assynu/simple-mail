@@ -69,7 +69,8 @@ public class EmailView extends JFrame implements ManageableView {
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.CENTER);
 
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setPreferredSize(new Dimension(800, 600));
+        this.setMinimumSize(new Dimension(500, 300));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
