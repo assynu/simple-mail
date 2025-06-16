@@ -1,12 +1,14 @@
 package com.bartczakdawid.features.contacts;
 
 import com.bartczakdawid.core.navigation.ManageableView;
-import com.bartczakdawid.features.contacts.contactdetails.ContactDetailsView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ContactsView extends JFrame implements ManageableView {
+    private final JButton newContactButton;
+    private final ContactList contactList;
+
     public ContactsView() {
         this.setTitle("Contacts");
         this.setLayout(new BorderLayout());
@@ -14,8 +16,7 @@ public class ContactsView extends JFrame implements ManageableView {
         JLabel title = new JLabel("Contacts");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
 
-        JButton newContactButton = new JButton("New contact");
-        newContactButton.addActionListener(_ -> new ContactDetailsView(null));
+        this.newContactButton = new JButton("New contact");
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 4, 8));
@@ -24,7 +25,7 @@ public class ContactsView extends JFrame implements ManageableView {
         topPanel.add(newContactButton, BorderLayout.EAST);
         topPanel.add(new JSeparator(), BorderLayout.SOUTH);
 
-        ContactList contactList = new ContactList();
+        this.contactList = new ContactList();
         JScrollPane scrollPane = new JScrollPane(contactList);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
@@ -34,6 +35,14 @@ public class ContactsView extends JFrame implements ManageableView {
         this.setMinimumSize(new Dimension(300, 150));
         this.pack();
         this.setLocationRelativeTo(null);
+    }
+
+    public JButton getNewContactButton() {
+        return newContactButton;
+    }
+
+    public ContactList getContactList() {
+        return contactList;
     }
 
     @Override

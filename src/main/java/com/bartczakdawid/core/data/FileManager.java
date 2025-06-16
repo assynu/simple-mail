@@ -56,7 +56,7 @@ public class FileManager {
     public void writeLines(String[] lines, boolean append) {
         executorService.submit(() -> {
             try (FileWriter fileWriter = new FileWriter(this.file, append)) {
-                for(String line : lines) {
+                for (String line : lines) {
                     String escapedLine = line.replace("\n", "\\n");
                     fileWriter.write(escapedLine + "\n");
                 }

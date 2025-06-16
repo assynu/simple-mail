@@ -1,8 +1,6 @@
 package com.bartczakdawid.features.contacts.contactdetails;
 
 import com.bartczakdawid.core.controls.input.Inputview;
-import com.bartczakdawid.features.alert.AlertView;
-import com.bartczakdawid.features.contacts.ContactManager;
 import com.bartczakdawid.features.contacts.Contact;
 
 import javax.swing.*;
@@ -12,6 +10,10 @@ public class ContactDetailsView extends JFrame {
     private final Inputview<JTextField> firstNameInput;
     private final Inputview<JTextField> lastNameInput;
     private final Inputview<JTextField> emailInput;
+    private final JButton createButton;
+    private final JButton saveButton;
+    private final JButton deleteButton;
+    private final JButton cancelButton;
 
     public ContactDetailsView(Contact contact) {
         JLabel title = new JLabel("Contact details");
@@ -40,16 +42,16 @@ public class ContactDetailsView extends JFrame {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         bottomPanel.setBackground(Color.WHITE);
 
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(_ -> this.dispose());
-        bottomPanel.add(cancelButton, BorderLayout.WEST);
+        this.cancelButton = new JButton("Cancel");
+        bottomPanel.add(this.cancelButton, BorderLayout.WEST);
 
         if (contact == null) {
             this.setTitle("New Contact");
-            JButton createButton = new JButton("Create");
-            createButton.addActionListener(_ -> this.createContact());
+            this.createButton = new JButton("Create");
+            this.saveButton = null;
+            this.deleteButton = null;
 
-            bottomPanel.add(createButton, BorderLayout.EAST);
+            bottomPanel.add(this.createButton, BorderLayout.EAST);
         } else {
             this.setTitle("Edit contact");
 
@@ -58,21 +60,18 @@ public class ContactDetailsView extends JFrame {
             this.emailInput.setText(contact.getEmail());
             this.emailInput.setEditable(false);
 
+            this.createButton = null;
+            this.saveButton = new JButton("Save");
+            this.deleteButton = new JButton("Delete");
+
             JPanel bottomLeftPanel = new JPanel(new BorderLayout());
             bottomLeftPanel.setBackground(Color.WHITE);
-
-            JButton saveButton = new JButton("Save");
-            saveButton.addActionListener(_ -> this.saveContact());
-            JButton deleteButton = new JButton("Delete");
-            deleteButton.addActionListener(_ -> this.deleteContact(contact));
-
-            bottomLeftPanel.add(saveButton, BorderLayout.EAST);
-            bottomLeftPanel.add(deleteButton, BorderLayout.WEST);
+            bottomLeftPanel.add(this.saveButton, BorderLayout.EAST);
+            bottomLeftPanel.add(this.deleteButton, BorderLayout.WEST);
             bottomPanel.add(bottomLeftPanel, BorderLayout.EAST);
         }
 
         this.setLayout(new BorderLayout());
-
         this.add(topPanel, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
@@ -81,51 +80,37 @@ public class ContactDetailsView extends JFrame {
         this.setLocationRelativeTo(null);
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
     }
 
-    public void createContact() {
-        try {
-            String firstname = this.firstNameInput.getText();
-            String lastname = this.lastNameInput.getText();
-            String email = this.emailInput.getText();
-
-            Contact contact = new Contact(firstname, lastname, email);
-            ContactManager.getInstance().createContact(contact);
-
-            AlertView.showAlert("Success", "New contact has been created", UIManager.getIcon("OptionPane.informationIcon"));
-            this.dispose();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            AlertView.showError(e.getMessage());
-        }
+    public String getFirstName() {
+        return firstNameInput.getText();
     }
 
-    public void saveContact() {
-        try {
-            String firstname = this.firstNameInput.getText();
-            String lastname = this.lastNameInput.getText();
-            String email = this.emailInput.getText();
-
-            ContactManager.getInstance().updateContact(email, firstname, lastname);
-
-            AlertView.showAlert("Success", "Contact has been updated", UIManager.getIcon("OptionPane.informationIcon"));
-            this.dispose();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            AlertView.showError(e.getMessage());
-        }
+    public String getLastName() {
+        return lastNameInput.getText();
     }
 
-    public void deleteContact(Contact contact) {
-        try {
-            ContactManager.getInstance().deleteContact(contact);
+    public String getEmail() {
+        return emailInput.getText();
+    }
 
-            AlertView.showAlert("Success", "Contact has been deleted", UIManager.getIcon("OptionPane.informationIcon"));
-            this.dispose();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            AlertView.showError(e.getMessage());
-        }
+    public JButton getCreateButton() {
+        return createButton;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public void closeView() {
+        this.dispose();
     }
 }

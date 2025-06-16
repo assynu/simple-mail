@@ -2,7 +2,7 @@ package com.bartczakdawid.features.contacts;
 
 import com.bartczakdawid.core.data.FileManager;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashSet;
 
 public class ContactManager {
@@ -33,7 +33,7 @@ public class ContactManager {
         return contactManagerInstance;
     }
 
-    public void createContact(Contact contact) throws DuplicateContactException, IOException {
+    public void createContact(Contact contact) throws DuplicateContactException {
         if (this.contacts.contains(contact)) {
             throw new DuplicateContactException("Contact with this email address already exists");
         }
@@ -44,10 +44,8 @@ public class ContactManager {
         fileManager.writeLine(contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getEmail(), true);
     }
 
-    public void deleteContact(Contact contact) throws IllegalArgumentException, IOException {
-        boolean removed;
-
-        removed = this.contacts.removeIf(thisContact -> thisContact.getEmail().equals(contact.getEmail()));
+    public void deleteContact(Contact contact) throws IllegalArgumentException {
+        boolean removed = this.contacts.removeIf(thisContact -> thisContact.getEmail().equals(contact.getEmail()));
         if (!removed) {
             throw new IllegalArgumentException("Contact with email " + contact.getEmail() + " not found");
         }

@@ -1,8 +1,8 @@
 package com.bartczakdawid.features.email;
 
 import com.bartczakdawid.core.controls.clock.ClockView;
-import com.bartczakdawid.core.navigation.ViewType;
 import com.bartczakdawid.core.navigation.ViewManager;
+import com.bartczakdawid.core.navigation.ViewType;
 
 import javax.swing.*;
 import java.awt.*;

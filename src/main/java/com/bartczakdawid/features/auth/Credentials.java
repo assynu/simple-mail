@@ -11,6 +11,10 @@ public class Credentials {
         setPassword(password);
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     private void setEmail(String email) throws IllegalArgumentException {
         if (email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be empty");
@@ -23,19 +27,15 @@ public class Credentials {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     private void setPassword(String password) throws IllegalArgumentException {
         if (email.isEmpty()) {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

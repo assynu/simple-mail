@@ -2,35 +2,26 @@ package com.bartczakdawid.features.email;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashSet;
+import java.util.List;
 
-public class EmailList extends JList<Email> implements EmailListObserver {
-    private final HashSet<SelectedEmailChangeListener> listeners;
+public class EmailList extends JList<Email> {
+
+    private final DefaultListModel<Email> listModel;
 
     public EmailList() {
-        this.listeners = new HashSet<>();
-
-        this.addListSelectionListener(_ -> sendSelectedEmailChanged(this.getSelectedValue()));
+        this.listModel = new DefaultListModel<>();
+        this.setModel(listModel);
+        this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         this.setBorder(BorderFactory.createEmptyBorder());
     }
 
-    public void addSelectedEmailChangeListener(SelectedEmailChangeListener selectedEmailChangeListener) {
-        this.listeners.add(selectedEmailChangeListener);
-    }
-
-    public void sendSelectedEmailChanged(Email email) {
-        for (SelectedEmailChangeListener listener : this.listeners) {
-            listener.selectedEmailChanged(
-                    new SelectedEmailChangedEvent(this, email)
-            );
+    public void setEmailListData(List<Email> emails) {
+        listModel.clear();
+        for (Email email : emails) {
+            listModel.addElement(email);
         }
-    }
-
-    @Override
-    public void onEmailListChanged(HashSet<Email> emails) {
-        this.setListData(emails.toArray(Email[]::new));
     }
 }

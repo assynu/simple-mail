@@ -2,22 +2,18 @@ package com.bartczakdawid.features.email.newemail;
 
 import com.bartczakdawid.core.controls.dropdown.DropdownView;
 import com.bartczakdawid.core.controls.input.Inputview;
-import com.bartczakdawid.features.alert.AlertView;
 import com.bartczakdawid.core.navigation.ManageableView;
-import com.bartczakdawid.features.contacts.ContactListObserver;
-import com.bartczakdawid.features.contacts.ContactManager;
 import com.bartczakdawid.features.contacts.Contact;
-import com.bartczakdawid.features.email.EmailManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.HashSet;
+import java.util.List;
 
-public class NewEmailView extends JFrame implements ManageableView, ContactListObserver {
+public class NewEmailView extends JFrame implements ManageableView {
     private final Inputview<JTextField> subjectComponent;
     private final DropdownView<Contact> receiverComponent;
     private final Inputview<JTextArea> contentComponent;
+    private final JButton sendButton;
 
     public NewEmailView() {
         this.setTitle("New Email");
@@ -34,26 +30,13 @@ public class NewEmailView extends JFrame implements ManageableView, ContactListO
         emailInfo.add(receiverComponent);
         emailInfo.add(subjectComponent);
 
-        try {
-            ContactManager.getInstance().addObserver(this);
-        } catch (IOException e) {
-            AlertView.showError(e.getMessage());
-        }
-
         JPanel content = new JPanel(new BorderLayout());
         content.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         content.setBackground(Color.WHITE);
         content.add(emailInfo, BorderLayout.NORTH);
         content.add(contentComponent, BorderLayout.CENTER);
 
-        JButton sendButton = new JButton("Send");
-        sendButton.addActionListener(_ -> {
-            try {
-                sendEmail();
-            } catch (Exception e) {
-                AlertView.showError("Couldn't send email, " + e.getMessage());
-            }
-        });
+        this.sendButton = new JButton("Send");
 
         JPanel actionsPanel = new JPanel(new BorderLayout());
         actionsPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
@@ -68,30 +51,39 @@ public class NewEmailView extends JFrame implements ManageableView, ContactListO
         this.setLocationRelativeTo(null);
     }
 
-    private void sendEmail() throws Exception {
-        Contact receiver = this.receiverComponent.getValue();
-        String subject = this.subjectComponent.getText();
-        String content = this.contentComponent.getText();
+    public JButton getSendButton() {
+        return sendButton;
+    }
 
-        EmailManager.getInstance().sendEmail(receiver.getEmail(), subject, content);
-        hideView();
+    public Contact getReceiver() {
+        return receiverComponent.getValue();
+    }
+
+    public String getSubject() {
+        return subjectComponent.getText();
+    }
+
+    public String getContent() {
+        return contentComponent.getText();
+    }
+
+    public void setReceiverOptions(List<Contact> contacts) {
+        this.receiverComponent.setOptions(contacts.toArray(new Contact[0]));
+    }
+
+    public void clearForm() {
+        this.subjectComponent.setText("");
+        this.contentComponent.setText("");
     }
 
     @Override
     public void showView() {
-        this.subjectComponent.setText("");
-        this.contentComponent.setText("");
-
+        this.clearForm();
         this.setVisible(true);
     }
 
     @Override
     public void hideView() {
         this.setVisible(false);
-    }
-
-    @Override
-    public void onContactListChanged(HashSet<Contact> contacts) {
-        this.receiverComponent.setOptions(contacts.toArray(Contact[]::new));
     }
 }

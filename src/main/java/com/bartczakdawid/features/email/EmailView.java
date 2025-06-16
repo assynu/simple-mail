@@ -1,28 +1,24 @@
 package com.bartczakdawid.features.email;
 
 import com.bartczakdawid.core.navigation.ManageableView;
-import com.bartczakdawid.core.navigation.ViewManager;
-import com.bartczakdawid.core.navigation.ViewType;
-import com.bartczakdawid.features.alert.AlertView;
-import com.bartczakdawid.features.auth.AccountManager;
-import com.bartczakdawid.features.auth.Credentials;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class EmailView extends JFrame implements ManageableView {
     private final JButton accountButton;
+    private final EmailContent emailContent;
+    private final EmailList emailList;
 
     public EmailView() {
         this.setTitle("Simple Mail");
         this.setLayout(new BorderLayout());
 
-        EmailActions menuBar = new EmailActions();
-        EmailContent emailContent = new EmailContent();
+        EmailActions emailActions = new EmailActions();
+        this.emailContent = new EmailContent();
 
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(menuBar, BorderLayout.NORTH);
+        rightPanel.add(emailActions, BorderLayout.NORTH);
         rightPanel.add(emailContent, BorderLayout.CENTER);
 
         JLabel label = new JLabel("All Emails");
@@ -32,25 +28,8 @@ public class EmailView extends JFrame implements ManageableView {
         this.accountButton = new JButton();
         this.accountButton.setFont(this.accountButton.getFont().deriveFont(11f));
         this.accountButton.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        this.accountButton.addActionListener(_ -> {
-            try {
-                AccountManager.getInstance().clearCredentials();
-                ViewManager viewManager = ViewManager.getInstance();
-                viewManager.hideAllViews();
-                viewManager.toggleView(ViewType.LoginView, true);
-            } catch (IOException e) {
-                AlertView.showError("Could not logout, " + e.getMessage());
-            }
-        });
 
-        EmailList emailList = new EmailList();
-        emailList.addSelectedEmailChangeListener(emailContent);
-
-        try {
-            EmailManager.getInstance().addObserver(emailList);
-        } catch (IOException e) {
-            AlertView.showError("Could not sync saved emails, " + e.getMessage());
-        }
+        this.emailList = new EmailList();
 
         JPanel leftPanel = new JPanel();
         leftPanel.setPreferredSize(new Dimension(200, 0));
@@ -71,15 +50,20 @@ public class EmailView extends JFrame implements ManageableView {
         this.setLocationRelativeTo(null);
     }
 
+    public JButton getAccountButton() {
+        return accountButton;
+    }
+
+    public EmailContent getEmailContent() {
+        return emailContent;
+    }
+
+    public EmailList getEmailList() {
+        return emailList;
+    }
+
     @Override
     public void showView() {
-        try {
-            Credentials credentials = AccountManager.getInstance().getCredentials();
-            this.accountButton.setText(credentials.getEmail());
-        } catch (IOException e) {
-            AlertView.showError("Could not retrieve account email, " + e.getMessage());
-        }
-
         this.setVisible(true);
     }
 

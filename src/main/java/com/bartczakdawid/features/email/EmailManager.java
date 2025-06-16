@@ -30,6 +30,7 @@ public class EmailManager {
             emails.add(email);
         }
     }
+
     public static EmailManager getInstance() throws IOException {
         if (emailManagerInstance == null) {
             emailManagerInstance = new EmailManager();
@@ -46,15 +47,15 @@ public class EmailManager {
                 .buildMailer()) {
 
             mailer.sendMail(EmailBuilder
-                .startingBlank()
-                .from(credentials.getEmail())
-                .to(receiver)
-                .withSubject(subject)
-                .withPlainText(content)
-                .buildEmail()
+                    .startingBlank()
+                    .from(credentials.getEmail())
+                    .to(receiver)
+                    .withSubject(subject)
+                    .withPlainText(content)
+                    .buildEmail()
             );
 
-            Email sentEmail = new Email(credentials.getEmail(),  receiver, subject, content);
+            Email sentEmail = new Email(credentials.getEmail(), receiver, subject, content);
             emails.add(sentEmail);
             fileManager.writeLine(sentEmail.getSender() + ";" + sentEmail.getReceiver() + ";" + sentEmail.getSubject() + ";" + sentEmail.getContent() + ";" + sentEmail.getIsoTime(), true);
             notifyObservers();

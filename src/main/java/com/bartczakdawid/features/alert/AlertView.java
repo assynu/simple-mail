@@ -49,7 +49,6 @@ public class AlertView extends JFrame {
         showAlert("Error", error, UIManager.getIcon("OptionPane.errorIcon"));
     }
 
-
     public static void showFatalError(String error) {
         showAlert("Fatal Error", error, UIManager.getIcon("OptionPane.errorIcon"));
         alert.button.setText("Exit");

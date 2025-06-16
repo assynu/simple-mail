@@ -6,9 +6,8 @@ import java.io.IOException;
 
 public class AccountManager {
     private static AccountManager accountManagerInstance;
-
-    private Credentials credentials;
     private final FileManager fileManager;
+    private Credentials credentials;
 
     private AccountManager() throws IOException {
         this.fileManager = new FileManager("./data", "credentials.txt");
@@ -37,7 +36,7 @@ public class AccountManager {
 
     public void setCredentials(Credentials credentials) throws IOException {
         this.credentials = credentials;
-        this.fileManager.writeLines(new String[] {credentials.getEmail(), credentials.getPassword()}, false);
+        this.fileManager.writeLines(new String[]{credentials.getEmail(), credentials.getPassword()}, false);
     }
 
     public void clearCredentials() throws IOException {
