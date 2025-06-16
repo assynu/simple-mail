@@ -1,11 +1,16 @@
 package com.bartczakdawid.features.email;
 
-import com.bartczakdawid.core.navigation.ViewType;
-import com.bartczakdawid.core.navigation.ManageableView;
-import com.bartczakdawid.features.auth.AccountManager;
-import com.bartczakdawid.core.navigation.ViewManager;
-import com.bartczakdawid.features.auth.Credentials;
-import com.bartczakdawid.features.alert.AlertView;
+import com.bartczakdawid.features.contact.managers.ContactManager;
+import com.bartczakdawid.features.email.components.EmailContent;
+import com.bartczakdawid.features.email.components.EmailList;
+import com.bartczakdawid.features.email.components.MenuBar;
+import com.bartczakdawid.core.enums.ViewType;
+import com.bartczakdawid.core.interfaces.ManageableView;
+import com.bartczakdawid.features.account.managers.AccountManager;
+import com.bartczakdawid.core.managers.ViewManager;
+import com.bartczakdawid.features.account.models.Credentials;
+import com.bartczakdawid.features.alert.views.AlertView;
+import com.bartczakdawid.features.email.managers.EmailManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +23,11 @@ public class EmailView extends JFrame implements ManageableView {
         this.setTitle("Simple Mail");
         this.setLayout(new BorderLayout());
 
-        EmailActions emailActions = new EmailActions();
+        MenuBar menuBar = new MenuBar();
         EmailContent emailContent = new EmailContent();
 
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(emailActions, BorderLayout.NORTH);
+        rightPanel.add(menuBar, BorderLayout.NORTH);
         rightPanel.add(emailContent, BorderLayout.CENTER);
 
         JLabel label = new JLabel("All Emails");
