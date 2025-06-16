@@ -30,12 +30,15 @@ public class FileManager {
     public String[] readFile() throws IOException {
         FileReader fileReader = new FileReader(this.file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        return bufferedReader.lines().toArray(String[]::new);
+        return bufferedReader.lines()
+                .map(line -> line.replace("\\n", "\n"))
+                .toArray(String[]::new);
     }
 
     public void writeLine(String line, boolean append) throws IOException {
+        String escapedLine = line.replace("\n", "\\n");
         try (FileWriter fileWriter = new FileWriter(this.file, append)) {
-            fileWriter.write(line + "\n");
+            fileWriter.write(escapedLine + "\n");
             fileWriter.flush();
         }
     }
@@ -43,7 +46,8 @@ public class FileManager {
     public void writeLines(String[] lines, boolean append) throws IOException {
         try (FileWriter fileWriter = new FileWriter(this.file, append)) {
             for(String line : lines) {
-                fileWriter.write(line + "\n");
+                String escapedLine = line.replace("\n", "\\n");
+                fileWriter.write(escapedLine + "\n");
             }
             fileWriter.flush();
         }

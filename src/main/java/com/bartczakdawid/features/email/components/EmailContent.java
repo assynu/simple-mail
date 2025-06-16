@@ -12,7 +12,7 @@ public class EmailContent extends JPanel implements SelectedEmailChangeListener 
     private final TextPresenter subjectComponent;
     private final TextPresenter senderComponent;
     private final TextPresenter receiverComponent;
-    private final JLabel contentComponent;
+    private final JTextArea contentComponent;
     private final JLabel timeComponent;
 
     public EmailContent() {
@@ -26,10 +26,11 @@ public class EmailContent extends JPanel implements SelectedEmailChangeListener 
         this.subjectComponent = new TextPresenter("Subject", "Empty");
         this.senderComponent = new TextPresenter("Sender", "Empty");
         this.receiverComponent = new TextPresenter("Receiver", "Empty");
-        this.contentComponent = new JLabel("Some email content");
+        this.contentComponent = new JTextArea("Some email content");
+        this.contentComponent.setEditable(false);
         this.timeComponent = new JLabel("03/06/2025 17:57");
-        timeComponent.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
-        timeComponent.setFont(timeComponent.getFont().deriveFont(12f));
+        this.timeComponent.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
+        this.timeComponent.setFont(timeComponent.getFont().deriveFont(12f));
 
         emailInfo.add(subjectComponent);
         emailInfo.add(new JSeparator());
