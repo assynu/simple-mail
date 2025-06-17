@@ -24,18 +24,15 @@ public class NewEmailController implements ContactListObserver {
             throw new RuntimeException(e);
         }
         initListeners();
-        setupContactListObservation();
+        contactManager.addObserver(this);
     }
 
     private void initListeners() {
         view.getSendButton().addActionListener(_ -> sendEmail());
     }
 
-    private void setupContactListObservation() {
-        contactManager.addObserver(this);
-    }
-
     private void sendEmail() {
+        view.getSendButton().setEnabled(false);
         try {
             Contact receiver = view.getReceiver();
             String subject = view.getSubject();
@@ -50,6 +47,7 @@ public class NewEmailController implements ContactListObserver {
             AlertView.showAlert("Success", "Email sent!", UIManager.getIcon("OptionPane.informationIcon"));
             view.hideView();
         } catch (Exception e) {
+            view.getSendButton().setEnabled(true);
             AlertView.showError("Couldn't send email: " + e.getMessage());
         }
     }

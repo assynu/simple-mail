@@ -1,14 +1,14 @@
 package com.bartczakdawid.features.auth;
 
-import com.bartczakdawid.core.controls.input.Inputview;
+import com.bartczakdawid.core.controls.input.InputView;
 import com.bartczakdawid.core.navigation.ManageableView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginView extends JFrame implements ManageableView {
-    private final Inputview<JTextField> emailInput;
-    private final Inputview<JPasswordField> passwordInput;
+    private final InputView<JTextField> emailInput;
+    private final InputView<JPasswordField> passwordInput;
     private final JButton loginButton;
 
     public LoginView() {
@@ -22,8 +22,8 @@ public class LoginView extends JFrame implements ManageableView {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        this.emailInput = new Inputview<>("Email", new JTextField());
-        this.passwordInput = new Inputview<>("Password", new JPasswordField());
+        this.emailInput = new InputView<>("Email", new JTextField());
+        this.passwordInput = new InputView<>("Password", new JPasswordField());
 
         contentPanel.add(emailInput);
         contentPanel.add(passwordInput);

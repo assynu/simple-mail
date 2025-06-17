@@ -1,5 +1,6 @@
 package com.bartczakdawid.features.email;
 
+import com.bartczakdawid.core.controls.clock.ClockController;
 import com.bartczakdawid.core.controls.clock.ClockView;
 import com.bartczakdawid.core.navigation.ViewManager;
 import com.bartczakdawid.core.navigation.ViewType;
@@ -26,11 +27,10 @@ public class EmailActions extends JPanel {
         leftPanel.add(newContactButton);
         leftPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        ClockView clockView = new ClockView();
-        clockView.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        ClockController clockController = new ClockController();
 
         this.add(leftPanel, BorderLayout.CENTER);
-        this.add(clockView, BorderLayout.EAST);
+        this.add(clockController.getView(), BorderLayout.EAST);
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 

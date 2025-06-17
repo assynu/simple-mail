@@ -4,10 +4,10 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 
-public class Inputview<T extends JTextComponent> extends JPanel {
+public class InputView<T extends JTextComponent> extends JPanel {
     private final T inputText;
 
-    public Inputview(String label, T textComponent) {
+    public InputView(String label, T textComponent) {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
 

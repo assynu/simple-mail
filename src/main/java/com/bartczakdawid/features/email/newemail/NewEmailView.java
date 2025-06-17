@@ -1,7 +1,7 @@
 package com.bartczakdawid.features.email.newemail;
 
 import com.bartczakdawid.core.controls.dropdown.DropdownView;
-import com.bartczakdawid.core.controls.input.Inputview;
+import com.bartczakdawid.core.controls.input.InputView;
 import com.bartczakdawid.core.navigation.ManageableView;
 import com.bartczakdawid.features.contacts.Contact;
 
@@ -10,9 +10,9 @@ import java.awt.*;
 import java.util.List;
 
 public class NewEmailView extends JFrame implements ManageableView {
-    private final Inputview<JTextField> subjectComponent;
+    private final InputView<JTextField> subjectComponent;
     private final DropdownView<Contact> receiverComponent;
-    private final Inputview<JTextArea> contentComponent;
+    private final InputView<JTextArea> contentComponent;
     private final JButton sendButton;
 
     public NewEmailView() {
@@ -24,8 +24,8 @@ public class NewEmailView extends JFrame implements ManageableView {
         emailInfo.setBackground(Color.WHITE);
 
         this.receiverComponent = new DropdownView<>("Receiver", new Contact[0]);
-        this.subjectComponent = new Inputview<>("Subject", new JTextField());
-        this.contentComponent = new Inputview<>("Content", new JTextArea());
+        this.subjectComponent = new InputView<>("Subject", new JTextField());
+        this.contentComponent = new InputView<>("Content", new JTextArea());
 
         emailInfo.add(receiverComponent);
         emailInfo.add(subjectComponent);

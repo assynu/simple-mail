@@ -59,7 +59,7 @@ public class ContactManager {
         fileManager.writeLines(lines, false);
     }
 
-    public void updateContact(String email, String firstname, String lastname) throws IOException, IllegalArgumentException {
+    public void updateContact(String email, String firstname, String lastname) throws IllegalArgumentException {
         for (Contact contact : this.contacts) {
             if (contact.getEmail().equals(email)) {
                 contact.setFirstname(firstname);

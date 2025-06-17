@@ -1,15 +1,15 @@
 package com.bartczakdawid.features.contacts.contactdetails;
 
-import com.bartczakdawid.core.controls.input.Inputview;
+import com.bartczakdawid.core.controls.input.InputView;
 import com.bartczakdawid.features.contacts.Contact;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ContactDetailsView extends JFrame {
-    private final Inputview<JTextField> firstNameInput;
-    private final Inputview<JTextField> lastNameInput;
-    private final Inputview<JTextField> emailInput;
+    private final InputView<JTextField> firstNameInput;
+    private final InputView<JTextField> lastNameInput;
+    private final InputView<JTextField> emailInput;
     private final JButton createButton;
     private final JButton saveButton;
     private final JButton deleteButton;
@@ -30,9 +30,9 @@ public class ContactDetailsView extends JFrame {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        this.firstNameInput = new Inputview<>("First name", new JTextField());
-        this.lastNameInput = new Inputview<>("Last name", new JTextField());
-        this.emailInput = new Inputview<>("Email", new JTextField());
+        this.firstNameInput = new InputView<>("First name", new JTextField());
+        this.lastNameInput = new InputView<>("Last name", new JTextField());
+        this.emailInput = new InputView<>("Email", new JTextField());
 
         contentPanel.add(this.firstNameInput);
         contentPanel.add(this.lastNameInput);
