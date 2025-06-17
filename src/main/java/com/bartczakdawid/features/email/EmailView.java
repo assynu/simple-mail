@@ -25,7 +25,7 @@ public class EmailView extends JFrame implements ManageableView {
         label.setFont(label.getFont().deriveFont(Font.BOLD));
         label.setBorder(BorderFactory.createEmptyBorder(16, 8, 16, 0));
 
-        this.accountButton = new JButton();
+        this.accountButton = new JButton("Logout");
         this.accountButton.setFont(this.accountButton.getFont().deriveFont(11f));
         this.accountButton.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
